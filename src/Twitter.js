@@ -11,7 +11,6 @@ const Example = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [iseError, setIsError] = useState(false);
-  // const [user, setUser] = useState();
 
   useEffect(() => {
     fetch(url)
@@ -42,16 +41,6 @@ const Example = () => {
   if (iseError) {
     return <h2>{`Error: ${posts} `}</h2>;
   }
-
-  // const fetchPosts = async () => {
-  //   const usersData = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-  //   const data = await usersData.json();
-  //   setPosts(data);
-  // };
-
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, []);
 
   return (
     <div>

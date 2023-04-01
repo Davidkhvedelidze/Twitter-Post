@@ -24,6 +24,7 @@ const Userbar = (props) => {
       `https://jsonplaceholder.typicode.com/comments?postId=${id}`
     );
     const data = await res.json();
+
     return data;
   };
   const getPhoto = async (id) => {
@@ -40,27 +41,35 @@ const Userbar = (props) => {
     const data = await res.json();
     return data;
   };
+
   useEffect(() => {
     const fetchFullPost = async (id) => {
       const newPost = await getPost(id);
       const newPhoto = await getPhoto(newPost.id);
-      const newComment = await getComment(newPost.id);
+      // const newComment = await getComment(newPost.id);
       const newUser = await getUser(newPost.userId);
       setPost(newPost);
       setPhoto(newPhoto);
-      setComment(newComment);
+      // setComment(newComment);
       setUser(newUser);
     };
 
     fetchFullPost(postId);
   }, [postId]);
 
+  const handleComment = async () => {
+    const newComment = await getComment(post.id);
+    setComment(newComment);
+    setIsComment(!isComment);
+  };
+  // handleComment(postId);
+
   const userInfo = user && user[0];
 
   return (
     post &&
     user &&
-    comment &&
+    // comment &&
     photo && (
       <div className="twitterContainer">
         <div className="twitterHeader">
@@ -91,7 +100,7 @@ const Userbar = (props) => {
           <img className="main-img" src={photo[0].url}></img>
         </div>
         <div className="icons">
-          <div className="heart-btn" onClick={() => setIsComment(!isComment)}>
+          <div className="heart-btn" onClick={handleComment}>
             <FaCommentAlt />
           </div>
           <img
