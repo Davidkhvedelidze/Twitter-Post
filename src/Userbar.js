@@ -1,100 +1,129 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { FaCommentAlt } from "react-icons/fa";
 
-import "./userBar.css";
+const Userbar = (props) => {
+  const { postId } = props;
 
-const Userbar = ({ body, title, id, userId }) => {
+  const [isLike, setIsLike] = useState(false);
+  const [post, setPost] = useState(null);
+  const [comment, setComment] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const [isComment, setIsComment] = useState(false);
+
+  const getPost = async (id) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const data = await res.json();
+    return data;
+  };
+
+  const getComment = async (id) => {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/comments?postId=${id}`
+    );
+    const data = await res.json();
+    return data;
+  };
+  const getPhoto = async (id) => {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/photos?id=${id}`
+    );
+    const data = await res.json();
+    return data;
+  };
+  const getUser = async (id) => {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/users?id=${id}`
+    );
+    const data = await res.json();
+    return data;
+  };
+  useEffect(() => {
+    const fetchFullPost = async (id) => {
+      const newPost = await getPost(id);
+      const newPhoto = await getPhoto(newPost.id);
+      const newComment = await getComment(newPost.id);
+      const newUser = await getUser(newPost.userId);
+      setPost(newPost);
+      setPhoto(newPhoto);
+      setComment(newComment);
+      setUser(newUser);
+    };
+
+    fetchFullPost(postId);
+  }, [postId]);
+
+  const userInfo = user && user[0];
+
   return (
-    <div className="twitterContainer">
-      <div className="twitterHeader">
-        <div>
-          <img
-            src="https://via.placeholder.com/600/f66b97"
-            width={60}
-            className="profileImage"
-          ></img>
-        </div>
-        <div className="userDetails">
-          <h3>
-            {userId}
+    post &&
+    user &&
+    comment &&
+    photo && (
+      <div className="twitterContainer">
+        <div className="twitterHeader">
+          <div className="profileImage">
+            {userInfo.name && userInfo.name.charAt(0).toUpperCase()}
+          </div>
+          <div className="userDetails">
+            <h3>
+              {userInfo.name && userInfo.name}
 
-            {id}
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/512px-Twitter_Verified_Badge.svg.png"
+                className="verify"
+                width={15}
+              ></img>
+            </h3>
+            <p>@{userInfo.username && userInfo.username}</p>
+          </div>
+          <div>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/512px-Twitter_Verified_Badge.svg.png"
-              className="verify"
-              width={15}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/584px-Twitter-logo.svg.png"
+              width={35}
             ></img>
-          </h3>
-          <p>@username</p>
+          </div>
         </div>
-        <div>
+        <div className="post-content">
+          <h3>{post.title}</h3>
+          <img className="main-img" src={photo[0].url}></img>
+        </div>
+        <div className="icons">
+          <div className="heart-btn" onClick={() => setIsComment(!isComment)}>
+            <FaCommentAlt />
+          </div>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/584px-Twitter-logo.svg.png"
-            width={35}
+            src="https://icons.veryicon.com/png/o/miscellaneous/karl/retweet-12.png"
+            className="icon"
+          ></img>
+          <div className="heart-btn" onClick={() => setIsLike(!isLike)}>
+            {!isLike ? <MdFavoriteBorder /> : <MdFavorite />}
+          </div>
+          <img
+            src="https://create.twitter.com/content/dam/create-twitter/articles/how-to/2021/ht0013/share.png"
+            className="icon"
           ></img>
         </div>
+        {isComment &&
+          comment.map((com) => {
+            return (
+              <div className="comments-container">
+                <div className="comments-header">
+                  <div className="com-image"></div>
+                  <div>
+                    <h4>{com.name}</h4>
+                    <p>{com.email}</p>
+                  </div>
+                </div>
+                <p>{com.body}</p>
+              </div>
+            );
+          })}
       </div>
-      <div className="titleContainer">
-        <h3>{title}</h3>
-      </div>
-      <div className="icons">
-        <img
-          src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3212256/comment-text-icon-sm.png"
-          width={25}
-          className="icon"
-        ></img>
-        <img
-          src="https://icons.veryicon.com/png/o/miscellaneous/karl/retweet-12.png"
-          width={25}
-          className="icon"
-        ></img>
-        <img
-          src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3216380/heart-icon-md.png"
-          width={25}
-          className="icon"
-        ></img>
-        <img
-          src="https://create.twitter.com/content/dam/create-twitter/articles/how-to/2021/ht0013/share.png"
-          width={25}
-          className="icon"
-        ></img>
-      </div>
-    </div>
+    )
   );
 };
 
 export default Userbar;
-
-{
-  /* {persons &&
-        persons.map((person) => {
-          const { id, author, img } = person;
-          return (
-            <div className="item" key={id}>
-            <h1>{id}</h1>
-              <h1>{author}</h1>
-              <img src={person.img}></img>
-              <button type="button" onClick={() => removePerson(id)}>
-                click here harder...............
-                </button>
-                </div>
-                );
-              })} */
-}
-
-// <button type="button" onClick={() => setPersons("")}>
-//   click here
-// </button>
-// <br></br>
-// <button type="button" onClick={() => setCardItem(cardItem + 1)}>
-//   ++++++++++
-// </button>
-// <h1>{cardItem}</h1>
-// <button type="newBtn" onClick={() => setCardItem(cardItem - 1)}>
-//   --------------------
-// </button>
-
-{
-  /* {users.map((user) => {
-        return <pre>{JSON.stringify(user)}</pre>;
-      })} */
-}

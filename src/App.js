@@ -1,12 +1,15 @@
 // import { books } from "./books";
 
-import Example from "./Example";
+import Twitter from "./Twitter";
 import Userbar from "./Userbar";
 
 function App() {
   return (
     <div className="container">
-      <Example />
+      <div className="header">
+        <h1>Digital Institute</h1>
+      </div>
+      <Twitter />
     </div>
   );
 }
