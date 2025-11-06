@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ka">
-      <body>{children}</body>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }
