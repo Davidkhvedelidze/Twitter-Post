@@ -101,10 +101,10 @@ export default function HomePage() {
       <header className="navbar" aria-label="Primary navigation">
         <div className="navbar-inner">
           <motion.span
-            className="brand"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
+            {...({ className: "brand" } as any)}
           >
             Photofest
           </motion.span>
@@ -127,38 +127,38 @@ export default function HomePage() {
       </header>
 
       <motion.section
-        className="hero"
         aria-labelledby="hero-title"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.6 }}
         variants={fadeUp}
         custom={0}
+        {...({ className: "hero" } as any)}
       >
         <div className="hero-content">
           <motion.span
-            className="hero-tag"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
+            {...({ className: "hero-tag" } as any)}
           >
             ჯადოსნური ფოტო გამოცდილებები
           </motion.span>
           <h1 id="hero-title">გაიღიმე • გადაიღე • გააზიარე</h1>
           <p className="hero-description">
-            Photofest ქმნის დაუვიწყარ გამოცდილებას ფოტოების, გიფებისა და ვიდეოებით.
-            ჩვენი აპარატები იდეალურად ერწყმის ნებისმიერ ივენთს და თქვენს სტუმრებს აძლევს
-            შესაძლებლობას წამებში გაიყოლონ ემოციები.
+            Photofest ქმნის დაუვიწყარ გამოცდილებას ფოტოების, გიფებისა და
+            ვიდეოებით. ჩვენი აპარატები იდეალურად ერწყმის ნებისმიერ ივენთს და
+            თქვენს სტუმრებს აძლევს შესაძლებლობას წამებში გაიყოლონ ემოციები.
           </p>
           <div className="hero-actions" aria-label="Call to action">
             {heroHighlights.map((pill, index) => (
               <motion.span
                 key={pill}
-                className="hero-pill"
                 custom={index}
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
+                {...({ className: "hero-pill" } as any)}
               >
                 {pill}
               </motion.span>
@@ -166,10 +166,10 @@ export default function HomePage() {
           </div>
         </div>
         <motion.div
-          className="hero-visual"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+          {...({ className: "hero-visual" } as any)}
         >
           <div className="hero-frame">
             <div className="floating-orb" aria-hidden="true" />
@@ -180,11 +180,11 @@ export default function HomePage() {
 
       <section className="section" id="devices" aria-labelledby="devices-title">
         <motion.h2
-          id="devices-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          {...({ id: "devices-title" } as any)}
         >
           აპარატები
         </motion.h2>
@@ -192,13 +192,13 @@ export default function HomePage() {
           {devices.map((device, index) => (
             <motion.article
               key={device.title}
-              className="card"
               custom={index}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
               whileHover={{ translateY: -8 }}
+              {...({ className: "card" } as any)}
             >
               <div className="card-header">
                 <span className="card-badge">Premium</span>
@@ -217,11 +217,11 @@ export default function HomePage() {
 
       <section className="section" id="events" aria-labelledby="events-title">
         <motion.h2
-          id="events-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          {...({ id: "events-title" } as any)}
         >
           ღონისძიებები
         </motion.h2>
@@ -229,13 +229,13 @@ export default function HomePage() {
           {events.map((event, index) => (
             <motion.div
               key={event.title}
-              className="event-card"
               custom={index}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.4 }}
               variants={fadeUp}
               whileHover={{ translateY: -10 }}
+              {...({ className: "event-card" } as any)}
             >
               <div className="event-meta">
                 <span>{event.date}</span>
@@ -253,30 +253,34 @@ export default function HomePage() {
 
       <section className="section" id="contact" aria-labelledby="contact-title">
         <motion.h2
-          id="contact-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          {...({ id: "contact-title" } as any)}
         >
           კონტაქტი
         </motion.h2>
         <motion.div
-          className="contact-card"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          {...({ className: "contact-card" } as any)}
         >
           <h3>დაგვიკავშირდით</h3>
           <p className="contact-description">
-            დაგეგმეთ თქვენი შემდეგი ღონისძიება Photofest-თან ერთად. გაგიზიარებთ იდეებს,
-            ვიზუალურ კონცეფციას და მოვიფიქრებთ საუკეთესო გამოცდილებას.
+            დაგეგმეთ თქვენი შემდეგი ღონისძიება Photofest-თან ერთად. გაგიზიარებთ
+            იდეებს, ვიზუალურ კონცეფციას და მოვიფიქრებთ საუკეთესო გამოცდილებას.
           </p>
           <div className="contact-info">
             <a href="mailto:Photofest2@gmail.com">Photofest2@gmail.com</a>
             <a href="tel:+995596922299">596 922 299</a>
-            <a href="https://www.instagram.com/Photofest_ge" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.instagram.com/Photofest_ge"
+              target="_blank"
+              rel="noreferrer"
+            >
               Photofest_ge
             </a>
           </div>
